@@ -834,7 +834,7 @@ class CTFManager  extends MiniGameBase  {
 		if ((round ( $blockTouched->x ) == round ( $startButtonPos->x ) && round ( $blockTouched->y ) == round ( $startButtonPos->y ) && round ( $blockTouched->z ) == round ( $startButtonPos->z ))) {
 			// @fix-1
 			// //Check if Team has minimal players
-			if ($this->getPlugIn ()->blueTeamPLayers == null || $this->getPlugIn ()->blueTeamPLayers == null) {
+			if ($this->getPlugIn ()->blueTeamPLayers == null || $this->getPlugIn ()->redTeamPlayers == null) {
 				$player->sendMessage (TextFormat::YELLOW. $this->getMsg ( "game.not-enought-players" ) );
 				return;
 			}
@@ -842,7 +842,7 @@ class CTFManager  extends MiniGameBase  {
 				$player->sendMessage ( TextFormat::YELLOW.$this->getMsg ( "game.not-enought-players" ) );
 				return;
 			}
-			if (count ( $this->getPlugIn ()->blueTeamPLayers ) == 0) {
+			if (count ( $this->getPlugIn ()->redTeamPlayers ) == 0) {
 				$player->sendMessage (TextFormat::YELLOW. $this->getMsg ( "game.not-enought-players" ) );
 				return;
 			}			
