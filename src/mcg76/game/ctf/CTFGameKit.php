@@ -336,13 +336,13 @@ class CTFGameKit extends MiniGameBase {
 	
 	public function removePlayerIventory(Player $bp) {
 		if ($bp!=null) {
-			$bp->getInventory ()->setBoots ( new Item ( 0 ) );
-			$bp->getInventory ()->setChestplate ( new Item ( 0 ) );
-			$bp->getInventory ()->setHelmet ( new Item ( 0 ) );
-			$bp->getInventory ()->setLeggings ( new Item ( 0 ) );		
-			$bp->getInventory ()->sendArmorContents($bp->getViewers());
-			$bp->getInventory ()->sendContents ( $bp );					
-			$bp->getInventory ()->clearAll ();
+			$bp->getInventory ()->setBoots(Item::get(0));
+			$bp->getInventory ()->setChestplate(Item::get(0));
+			$bp->getInventory ()->setHelmet(Item::get(0));
+			$bp->getInventory ()->setLeggings(Item::get(0));		
+			$bp->getInventory ()->sendArmorContents($bp);
+			$bp->getInventory ()->sendContents($bp);
+			$bp->getInventory ()->clearAll();
 		}
 	}
 	public function getArmor($type, $slot) {
