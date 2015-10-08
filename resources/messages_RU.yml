@@ -24,31 +24,31 @@ ctf:
   capturedflag: "Красные Захватили Флаг!" 
   score: " Счёт Красных : "   
  setup:
-  action: "Setup Mode Action: " 
-  select: "[Select a Block to SET that location]" 
-  success: "Success! Saved Sign location:"   
-  failed: "Failed! Unable save Sign location:"     
+  action: "Действия режима установки: " 
+  select: "[Отметьте блок, чтобы выбрать эту точку]" 
+  success: "Успех! Точка для установки таблички сохранена:"   
+  failed: "Ой! Не получилось сохранить место для таблички:"     
  blue-team:
   capturedflag: "Синие Захватили Флаг!" 
   score: " Счёт Синих : "   
  error: 
-  wrong-sender: "This command can only run in-game only!"
-  no-permission: "You are not authorized to use this command!"
-  blueteam-flag-exist: "Invalid! Blue team flag still exist."
-  redteam-flag-exist: "Invalid! Red team flag still exist."
-  not-game-stop: "only in-game player allow to issue stop"   
+  wrong-sender: "Эта команда работает только в игре!"
+  no-permission: "У вас нет разрешения использовать эту команду!"
+  blueteam-flag-exist: "Ошибка! Флаг Синих еще существует."
+  redteam-flag-exist: "Ошибка! Флаг Красных еще существует."
+  not-game-stop: "Только Оператор сервера может остановить игру."   
 plugin:
  enable: "Мини-Игра Захват Флага (CTF) - ВКЛЮЧЕНА"
  disable: "Мини-Игра Захват Флага (CTF) - ВЫКЛЮЧЕНА "
 arena:
- created: "CTF Arena Created!"
+ created: "Арена для игры Захват Флага создана!"
 sign:
  teleport:
-  world: "teleport player to CTF world "
-  game: "teleport player to CTF game area"
-  spawn: "teleport player to -" 
-  ctf: "teleport to CTF world -" 
- world-not-found: "unable find home world"
+  world: "перенос игрока в мир CTF"
+  game: "перенос игрока в зону игры CTF"
+  spawn: "перенос игрока в -" 
+  ctf: "телепорт в мир CTF -" 
+ world-not-found: "не получается найти начальный мир"
  done: "готово !"
 command:
  ctf: "ctf"
@@ -106,9 +106,9 @@ game:
  round: "Раунд"
  stop: "Игра CTF остановлена!" 
  go: "началось! Поехали!!!!"
- full: "Sorry, team memberships is full. please try join later!"
- start-equipment: "equip player with armor and food"
- remove-equipment:  "removed player equipments"
+ full: "Извините, но команда полностью укомплектована, попробуйте присоединиться позже!"
+ start-equipment: "снаряжает игрока броней и едой"
+ remove-equipment:  "изымает обмундирование игрока"
  resetting: "Игра перезапускается, подождите немного..."
  ticks: " секунд."
  final:
@@ -119,5 +119,5 @@ game:
   blue-win: "* СИНИЕ ПОБЕДИЛИ! *"
   draw: "*  НИЧЬЯ *"
 block:
- display-on: "CTF block position display ON"
- display-off: "CTF block position display OFF"
+ display-on: "Показ положения блока CTF - Включен"
+ display-off: "Показ положения блока CTF - Выключен"
