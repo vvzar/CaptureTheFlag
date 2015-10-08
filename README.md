@@ -1,4 +1,4 @@
-CAPTURE THE FLAG - MINI-GAME  v1.5.3
+CAPTURE THE FLAG - MINI-GAME  v1.6.1
 <pre>
 =========================================
 What is new?
