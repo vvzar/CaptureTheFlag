@@ -221,7 +221,8 @@ class CTFManager  extends MiniGameBase  {
 	public function stopGame(Player $player) {
 		//to avoid interruption, only allow in-game player allow issue stop command
 		$inGamePlayers = array_merge($this->getPlugIn()->blueTeamPLayers, $this->getPlugIn()->redTeamPlayers);
-		if (!isset($inGamePlayers[$player->getName()])) {
+	//	if (!isset($inGamePlayers[$player->getName()])) {
+		if (!$sender->isOp ()) {
 			$player->sendMessage ( $this->getMsg ( "game.in-progress" ) );
 			$player->sendMessage ( $this->getMsg ( "ctf.error.not-game-stop" ) );
 			return;
@@ -544,7 +545,7 @@ class CTFManager  extends MiniGameBase  {
 		$player->getLevel ()->getServer ()->broadcastMessage (TextFormat::GOLD. $player->getName () . TextFormat::DARK_RED.$this->getMsg ( "team.joined-red" ), $this->plugin->blueTeamPLayers );
 		$player->getLevel ()->getServer ()->broadcastMessage (TextFormat::GOLD. $player->getName () . TextFormat::DARK_RED.$this->getMsg ( "team.joined-red" ), $this->plugin->redTeamPlayers );
 		foreach ( $this->getPlugIn ()->redTeamPlayers as $p ) {
-			$p->sendMessage ( $this->getMsg ( TextFormat::GRAY."team.members" ) . TextFormat::DARK_RED.$p->getName () );
+			$p->sendMessage ( TextFormat::GRAY.$this->getMsg ( "team.members" ) . TextFormat::DARK_RED.$p->getName () );
 		}
 	}
 	/**
@@ -560,8 +561,8 @@ class CTFManager  extends MiniGameBase  {
 			$this->getGameKit ()->removePlayerIventory ( $player );
 			$player->sendMessage ( $this->getMsg ( "game.remove-equipment" ) );
 		}
-		if (isset ( $this->getPlugIn ()->blueTeamPlayers [$player->getName ()] )) {
-			unset ( $this->getPlugIn ()->blueTeamPlayers [$player->getName ()] );
+		if (isset ( $this->getPlugIn ()->blueTeamPLayers [$player->getName ()] )) {
+			unset ( $this->getPlugIn ()->blueTeamPLayers [$player->getName ()] );
 			$player->setNameTag ( $player->getName () );
 			$this->getGameKit ()->removePlayerIventory ( $player );
 			$player->sendMessage ( $this->getMsg ( "game.remove-equipment" ) );
@@ -571,7 +572,7 @@ class CTFManager  extends MiniGameBase  {
 		$player->teleport ( $gameWaitingRoomPos );
 		
 		$player->getServer ()->broadcastMessage ( $player->getName () . $this->getMsg ( "ctf.left-game" ), $this->plugin->blueTeamPLayers);
-		$player->getServer ()->broadcastMessage ( $player->getName () . $this->getMsg ( "ctf.left-game" ) , $this->plugin->redTeamPlayers);
+		$player->getServer ()->broadcastMessage ( $player->getName () . $this->getMsg ( "ctf.left-game" ), $this->plugin->redTeamPlayers);
 	}
 	
 	/**
@@ -1000,19 +1001,19 @@ class CTFManager  extends MiniGameBase  {
 			}
 		}
 		
-		if (isset ( $this->getPlugIn ()->blueTeamPlayers [$player->getName ()] )) {
+		if (isset ( $this->getPlugIn ()->blueTeamPLayers [$player->getName ()] )) {
 			$msg = TextFormat::WHITE.$player->getName () . $this->getMsg ( "team.left-blue" );
 			//player left
-			$player->getServer ()->broadcastMessage ( $msg, $this->getPlugIn ()->blueTeamPlayers);
+			$player->getServer ()->broadcastMessage ( $msg, $this->getPlugIn ()->blueTeamPLayers);
 			$player->getServer ()->broadcastMessage ( $msg, $this->getPlugIn ()->redTeamPlayers);
 						
-			unset ( $this->getPlugIn ()->blueTeamPlayers [$player->getName ()] );
+			unset ( $this->getPlugIn ()->blueTeamPLayers [$player->getName ()] );
 			$player->setNameTag ( $player->getName () );
 			if ($player->getInventory ()->contains ( new Item ( Item::CARPET ) )) {
 				// put this flag back to team
 				$msg = TextFormat::WHITE.$player->getName () . " [" . $this->getMsg ( "ctf.return-flag" ) . "]";
 				//$player->getServer ()->broadcastMessage ( $msg );
-				$player->getServer ()->broadcastMessage ( $msg, $this->getPlugIn ()->blueTeamPlayers);
+				$player->getServer ()->broadcastMessage ( $msg, $this->getPlugIn ()->blueTeamPLayers);
 				$player->getServer ()->broadcastMessage ( $msg, $this->getPlugIn ()->redTeamPlayers);
 				
 				$this->getBuilder ()->addRedTeamFlag ( $player->getLevel (), Item::CARPET, 14 );
@@ -1026,7 +1027,7 @@ class CTFManager  extends MiniGameBase  {
 			if (count ( $this->getPlugIn ()->redTeamPlayers ) == 0 && count ( $this->getPlugIn ()->blueTeamPLayers ) > 0) {
 				$message = TextFormat::WHITE.$this->getMsg ( "team.red-no-players" );
 				//$player->getServer ()->broadcastMessage ( $message );
-				$player->getServer ()->broadcastMessage ( $msg, $this->getPlugIn ()->blueTeamPlayers);
+				$player->getServer ()->broadcastMessage ( $msg, $this->getPlugIn ()->blueTeamPLayers);
 				$player->getServer ()->broadcastMessage ( $msg, $this->getPlugIn ()->redTeamPlayers);
 				
 				// blue team win
@@ -1036,7 +1037,7 @@ class CTFManager  extends MiniGameBase  {
 			} elseif (count ( $this->getPlugIn ()->redTeamPlayers ) > 0 && count ( $this->getPlugIn ()->blueTeamPLayers ) == 0) {
 				$message = TextFormat::WHITE.$this->getMsg ( "team.blue-no-players" );
 				//$player->getServer ()->broadcastMessage ( $message );
-				$player->getServer ()->broadcastMessage ( $msg, $this->getPlugIn ()->blueTeamPlayers);
+				$player->getServer ()->broadcastMessage ( $msg, $this->getPlugIn ()->blueTeamPLayers);
 				$player->getServer ()->broadcastMessage ( $msg, $this->getPlugIn ()->redTeamPlayers);
 				
 				// red team win
@@ -1046,7 +1047,7 @@ class CTFManager  extends MiniGameBase  {
 			} elseif (count ( $this->getPlugIn ()->redTeamPlayers ) == 0 && count ( $this->getPlugIn ()->blueTeamPLayers ) == 0) {
 				$message = TextFormat::WHITE.$this->getMsg ( "team.no-players" );
 				//$player->getServer ()->broadcastMessage ( $message );
-				$player->getServer ()->broadcastMessage ( $msg, $this->getPlugIn ()->blueTeamPlayers);
+				$player->getServer ()->broadcastMessage ( $msg, $this->getPlugIn ()->blueTeamPLayers);
 				$player->getServer ()->broadcastMessage ( $msg, $this->getPlugIn ()->redTeamPlayers);
 				
 				// draw
@@ -1097,12 +1098,12 @@ class CTFManager  extends MiniGameBase  {
 		$player->addAttachment($this->getPlugIn(),self::CTF_PERMISSION_STATS, TRUE);
 		$player->addAttachment($this->getPlugIn(),self::CTF_PERMISSION_LEAVE, TRUE);
 		$player->addAttachment($this->getPlugIn(),self::CTF_PERMISSION_START, TRUE);
-		$player->addAttachment($this->getPlugIn(),self::CTF_PERMISSION_STOP, TRUE);
 		if ($player->isOp()) {
 			$player->addAttachment($this->getPlugIn(),self::CTF_PERMISSION_CREATE_ARENA, TRUE);
 			$player->addAttachment($this->getPlugIn(),self::CTF_PERMISSION_RESET_ARENA, TRUE);
 			$player->addAttachment($this->getPlugIn(),self::CTF_PERMISSION_BLOCK_DISPLAY_ON, TRUE);
 			$player->addAttachment($this->getPlugIn(),self::CTF_PERMISSION_BLOCK_DISPLAY_OFF, TRUE);
+			$player->addAttachment($this->getPlugIn(),self::CTF_PERMISSION_STOP, TRUE);
 		}
 	}
 
