@@ -3,6 +3,12 @@ CAPTURE THE FLAG - MINI-GAME  v1.5.3
 =========================================
 What is new?
 =========================================
+Change log for Version 1.6.1 - Oct.8.2015
+- fixed typos in blueTeamPLayers()
+- fixed join message for Red Team players
+- fixed crash on stop game event
+- move stop game event to op by default
+- new russian translation
 
 Change log for Version 1.5.3 -  Jan.31.2015
 - add fix#2 configuration to prevent players destroy the arena other than the flag
